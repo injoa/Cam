@@ -2,31 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Camera with Drawing Overlay</title>
+  <title>Camera Overlay App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { margin: 0; text-align: center; background: #111; color: #fff; font-family: sans-serif; }
-    video, canvas { width: 100%; max-width: 480px; height: auto; }
-    #overlay-img { position: absolute; top: 0; left: 0; width: 100%; pointer-events: none; }
-    #camera-container { position: relative; display: inline-block; }
-    #controls { margin-top: 10px; }
-    input[type="file"] { color: #000; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #camera-container {
+      position: relative;
+      width: 98vw;
+      height: 80vh;
+      overflow: hidden;
+    }
+
+    video, #overlay-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button, input[type="file"] {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #222;
+      color: white;
+    }
+
+    canvas { display: none; }
   </style>
 </head>
 <body>
 
-  <h2>Camera with Drawing Overlay</h2>
   <div id="camera-container">
     <video id="camera" autoplay playsinline></video>
     <img id="overlay-img" src="" alt="Overlay" />
   </div>
 
   <div id="controls">
-    <input type="file" accept="image/png" id="upload" />
+    <input type="file" accept="image/png" id="upload">
     <button onclick="capture()">Capture</button>
     <a id="download" download="photo.png" style="display: none;">Download Photo</a>
   </div>
 
-  <canvas id="canvas" style="display: none;"></canvas>
+  <canvas id="canvas"></canvas>
 
   <script>
     const video = document.getElementById('camera');
